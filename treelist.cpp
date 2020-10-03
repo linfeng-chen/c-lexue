@@ -1,41 +1,42 @@
 #include <iostream>
 #include "algorithm"
 #include "vector"
-
+#include "cstring"
 #define N 210005
-
 using namespace std;
-vector<int>tree[N],need[N];
 
+vector<int>tree[N];
 int a[N]={0}, flag[N]={0},root[N]={0};
-int flag1[N]={0};
-int dfs_flag(int root)//如果父节点有排序标记，则其所有子节点不需要排序，将所有子节点的标记赋为0
+int temp[N]={0},final[N]={0};
+int counter=0 ,sum=0;
+
+int dfs_flag(int root)//如果父节点有排序标记，则其所有子节点不需要排序
 {
-    if(tree[root].size()==0)return 0;
     for(int i=0;i<tree[root].size();i++)
     {
-        flag[tree[root][i]] = 0,flag1[tree[root][i]]=1;
-        int temp = tree[root][i];
-        dfs_flag(temp);
+        temp[++counter] = a[tree[root][i]];
+        dfs_flag(tree[root][i]);
     }
+    return counter;
 }
 int dfs(int root)
 {
-    need[root].push_back(a[root]);
-    if(flag[root]==1) dfs_flag(root);//如果有排序标记，就对其子节点全部赋0
-    else if(flag[root]==0&&flag1[root]==0)sort(tree[root].begin(),tree[root].end());//没有标记，就对其下一层子节点排序
-
-    for(int i=0;i<tree[root].size();i++)
+    if(flag[root]==1)//如果有排序标记
     {
-        int temp = tree[root][i];
-        dfs(temp);
-        for(int j=0;j<need[temp].size();j++)
-        need[root].push_back(need[temp][j]);
-        need[temp].clear();
+        final[++sum] = a[root],counter=0;
+        int tem=dfs_flag(root),one = sum;
+        for(int i=1;i<=tem;i++)final[++sum] = temp[i];
+        sort(&final[one],&final[sum+1]);
+        memset(temp,0,(tem+1)*sizeof(int));
     }
-    if(flag[root]==1) sort(need[root].begin(),need[root].end());
+    else //没有标记，就对其下一层子节点排序
+    {
+        final[++sum] = a[root];
+        sort(tree[root].begin(),tree[root].end());
+        for(int i=0;i<tree[root].size();i++)
+            dfs(tree[root][i]);
+    }
 }
-
 int main()
 {
     int n;
@@ -51,16 +52,13 @@ int main()
     }
     int tree_root = 0;
     for(int i=1;i<=n;i++) 
-    {
         if(root[i]==0) tree_root = i;//根节点
-    }
-   // printf("%ld\n",tree_root);
-
     dfs(tree_root);
-
-    printf("[%d",need[tree_root][0]);
-    for(int i=1;i<need[tree_root].size();i++)
-        printf(",%d",need[tree_root][i]);
+    printf("[%d",final[1]);
+    for(int i=2; ;i++)
+    if(final[i]!=0)
+        printf(",%d",final[i]);
+    else break;
     printf("]\n");
     
 
