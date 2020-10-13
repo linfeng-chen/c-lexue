@@ -2,9 +2,7 @@
 #include <stack>
 #include "cstring"
 #define N 1000001
-
 using namespace std;
-
 int main()
 {
     

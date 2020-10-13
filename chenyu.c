@@ -13,6 +13,7 @@ long comp(const void*a,const void*b)
 {
     return((long*)a)[1]-((long*)b)[1];
 }
+
 long bfs(long address)//
 {
     long head=0,tail=1;
@@ -25,7 +26,7 @@ long bfs(long address)//
         {
             long x1=word[i][1];
             if(x1>y1) break;
-            if(x1==y1&&flag[i]==0)
+            if(flag[i]==0)
             {
                 tail++;step[tail]=i,flag[i]=flag[step[head]]+1;
                 if(word[step[tail]][1]==A&&word[step[tail]][2]==B&&word[step[tail]][3]==C&&word[step[tail]][4]==D)

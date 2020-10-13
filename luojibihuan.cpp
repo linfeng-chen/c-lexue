@@ -38,7 +38,6 @@ int main()
             if(x==1) need=i;
         }    
     }
-
     if(need!=0) printf("%ld\n",need);
     else printf("-1\n");
 

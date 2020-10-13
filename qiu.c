@@ -2,8 +2,8 @@
 # include "string.h"
 
 #define N 100000
-int step[50]={0};
-int step1[50]={0};
+int step[60]={0};
+int step1[60]={0};
 int n,m,x,y;
 long long number=0;
 
@@ -46,9 +46,7 @@ int compare()
     for(int i=1;i<=n;i++)
     if(step[i]>step1[i]) counter +=3;
     else if(step[i]==step1[i]) counter+=1;
-
-    printf("%d\n",counter);
-
+   // printf("%d\n",counter);
     if(counter>=m) return 1;
     else return 0;
 }
@@ -71,7 +69,6 @@ int main()
     
     scanf("%d %d %d %d",&n,&m,&x,&y);
     dfs(x,1);
-
     printf("%lld\n",number);
     return 0;
 }

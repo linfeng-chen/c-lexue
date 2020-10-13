@@ -40,8 +40,8 @@ Status ListTraverse( SqList &L, void (*visit)( ElemType ) )
 {   // 依次对L的每个元素调用函数visit()。若visit()失败，则操作失败  
     int i, L_len = ListLength( L );  
     ElemType e;  
-      
     for ( i = 1;  i <= L_len; i++ )  {  
+        //printf("!!%d\n",L.elem[i]);
         GetElem(L, i, e);  
         (*visit)( e );  
     }  
@@ -65,23 +65,28 @@ Status LocateElem( SqList L, ElemType e,
     else return 0;      //若没有找到，则返回0  
 }  
   
-void out( ElemType e )  
-{   printf("%d,", e);  
+void out( ElemType e )  //打印e
+{   
+    printf("%d,", e);  
 }  
   
 void ListUnion( SqList &La,  SqList Lb ) //求 A＝A∪B  
 {   int La_len, Lb_len, i;  
     ElemType e;  
-   
+    
     La_len = ListLength( La );       // 求线性表的长度  
     Lb_len = ListLength( Lb );  
+
     for ( i = 1;  i <= Lb_len;  i++ )  {  
         GetElem(Lb, i, e);  // 取Lb中第i个数据元素赋给e  
         if ( !LocateElem( La, e, equal ) )   
-            ListInsert ( La, ++La_len, e ); // La中不存在和 e 相同的数据元素，则插入  
+        {
+           // printf("\n%d",Lb.elem[i]);
+            ListInsert ( La, ++La_len, e ); // La中不存在和 e 相同的数据元素，则插入 
+        }
+             
     }  
 }  
-  
 int main()  
 {   SqList La, Lb;  
     int n, i;  
@@ -109,28 +114,20 @@ int main()
     printf("\n");  
     return OK;  
 }  
-  
-/**************** 
-Status ListInsert( SqList &L, int i, ElemType e ) 
+  Status ListInsert( SqList &L, int i, ElemType e ) 
 {   //在顺序线性表L中第 i (1≤i≤L.length+1)个位置之前插入元素e, 
  
-    Here is wating for you. 
- 
+    if(i<=L.length+1)
+    L.elem[i-1] = e, L.length++;
 } 
  
 Status GetElem(SqList L, int i, ElemType &e) 
 { 
- 
-    Here is wating for you. 
- 
+     e = L.elem[i-1];
 } 
  
 int ListLength(SqList L) 
 {    
- 
-    Here is wating for you. 
- 
-} 
-*********************/  
-  
-/* PRESET CODE END - NEVER TOUCH CODE ABOVE */
+    return L.length ;
+}
+

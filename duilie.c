@@ -102,6 +102,7 @@ int main()
             else insert1(y,++y_2,y_small);
             
             
+            
             need[i] = need[i-1]+abs(x-mid_x)+abs(y-mid_y);
             if(abs(x_1-x_2)>=2)//两堆中个数相差2
             {
@@ -141,6 +142,7 @@ int main()
         memset(x_small,0,n);
         memset(y_big,0,n);
         memset(y_small,0,n);
+
         memset(need,0,n);
         x_1=0,x_2=0,y_1=0,y_2=0;
         

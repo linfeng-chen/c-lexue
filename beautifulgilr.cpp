@@ -21,18 +21,15 @@ int main()
         for(long long j=i;j<=n;j++)
         {
             
-            //
             if(i==j) dp[i][j] = dp[i-1][j-1]+number[j];
             else
             {
                 max_up = max(dp[i-1][j-1],max_up);
                 dp[i][j] = max(dp[i][j-1],max_up) + number[j];
             }
-            
         }
     }
     long long need = -(1<<30);
-    //printf("%lld\n",need);
         for(long long i=3;i<=n;i++)
     if(dp[3][i]>=need) need = dp[3][i];
 
