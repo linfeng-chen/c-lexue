@@ -7,6 +7,8 @@ typedef struct Ptnode{
     Ptnode *child[1000];
     int childnum;
 } *CTree,Pnode;
+
+
 void createtree(CTree &one,int &du)
 {
    char c; 
